@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MIRACLE-MLBB.GG</title>
+  <style>
+    /* --- General --- */
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      overflow-x: hidden;
+      cursor: url('https://cur.cursors-4u.net/food/foo-3/foo255.cur'), auto;
+    }
+
+    /* --- Encabezado RGB --- */
+    header {
+      padding: 40px 10px;
+      background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
+      background-size: 400% 400%;
+      animation: rgbFlow 8s ease infinite;
+    }
+    @keyframes rgbFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .rgb-title {
+      font-size: 2.5rem;
+      text-shadow: 0 0 15px #00ffff, 0 0 25px #ff00ff;
+    }
+    .subtitle {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    /* --- Navegación --- */
+    .nav-buttons {
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      border: none;
+      border-radius: 50%;
+      padding: 15px;
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(90deg, #ff00ff, #00ffff);
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 15px #00ffff;
+      transition: all 0.3s;
+    }
+    .nav-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px #ff00ff;
+    }
+    .nav-btn.active {
+      background: #fff;
+      color: #000;
+      box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff;
+    }
+
+    /* --- Secciones (pestañas) --- */
+    .tab-content {
+      display: none;
+      padding: 60px 20px;
+      animation: fadeIn 0.6s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    .action-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: linear-gradient(90deg, #00ffff, #ff00ff);
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 25px;
+      box-shadow: 0 0 15px #ff00ff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .action-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #00ffff;
+    }
+    .placeholder {
+      color: #ff00ff;
+      font-style: italic;
+      margin-top: 10px;
+    }
+
+    /* --- Modales --- */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background-color: #111;
+      border: 2px solid #ff00ff;
+      padding: 20px;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px #00ffff;
+      animation: modalPop 0.4s ease;
+    }
+    @keyframes modalPop {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .close {
+      float: right;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .close:hover {
+      color: #ff00ff;
+    }
+  </style>
+</head>
+
+<body>
+  <audio id="bg-music"
+    src="https://files.scottbuckley.com.au/mp3/2021/Night-Drift.mp3"
+    autoplay loop>
+  </audio>
+
+  <header>
+    <h1 class="rgb-title">BLAST · THE BEST PLAY</h1>
+    <p class="subtitle">"Te moldearé casi al nivel como Dios creó el universo."</p>
+  </header>
+
+  <nav class="nav-buttons">
+    <button class="nav-btn active" data-tab="perfil">Perfil</button>
+    <button class="nav-btn" data-tab="dota">Dota</button>
+    <button class="nav-btn" data-tab="torneos">Torneos</button>
+    <button class="nav-btn" data-tab="servicios">Servicios</button>
+    <button class="nav-btn" data-tab="resultados">Resultados</button>
+  </nav>
+
+  <!-- PERFIL -->
+  <section id="perfil" class="tab-content active">
+    <h2>Perfil Profesional MLBB</h2>
+    <p>GoldLaner · Jungler · MidLaner</p>
+    <p class="placeholder">por rellenar :c</p>
+    <button class="action-btn" data-modal="login">Iniciar Sesión</button>
+  </section>
+
+  <!-- DOTA -->
+  <section id="dota" class="tab-content">
+    <h2>Dota (por diversión)</h2>
+    <p>Juego Dota por diversión — si quieres nos echamos unas partidas en VIVOO.</p>
+    <p class="placeholder">por rellenar :c</p>
+  </section>
+
+  <!-- TORNEOS -->
+  <section id="torneos" class="tab-content">
+    <h2>Torneos</h2>
+    <p>Regístrate para participar en próximos torneos. Costos y premios disponibles pronto.</p>
+    <button class="action-btn" data-modal="registro">Registrar Participación</button>
+    <p class="placeholder">por rellenar :c</p>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="tab-content">
+    <h2>Servicios</h2>
+    <ul>
+      <li>Boosting</li>
+      <li>Coaching</li>
+      <li>Torneos</li>
+      <li>Streams</li>
+    </ul>
+    <button class="action-btn" data-modal="servicio">Solicitar Servicio</button>
+    <p class="placeholder">por rellenar :c</p>
+  </section>
+
+  <!-- RESULTADOS -->
+  <section id="resultados" class="tab-content">
+    <h2>Resultados / Pruebas</h2>
+    <p>Añade enlaces a YouTube como prueba de torneos y partidas.</p>
+    <p class="placeholder">por rellenar :c</p>
+  </section>
+
+  <!-- MODALES -->
+  <div id="modal-login" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Iniciar Sesión</h3>
+      <p>por rellenar :c</p>
+    </div>
+  </div>
+
+  <div id="modal-registro" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Registro de Torneos</h3>
+      <p>por rellenar :c</p>
+    </div>
+  </div>
+
+  <div id="modal-servicio" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Solicitar Servicio</h3>
+      <p>por rellenar :c</p>
+    </div>
+  </div>
+
+  <script>
+    // --- Navegación entre pestañas ---
+    const navBtns = document.querySelectorAll('.nav-btn');
+    const tabs = document.querySelectorAll('.tab-content');
+
+    navBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+
+        navBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        tabs.forEach(tab => {
+          tab.classList.remove('active');
+          if (tab.id === target) tab.classList.add('active');
+        });
+      });
+    });
+
+    // --- Modales ---
+    const modals = {
+      login: document.getElementById("modal-login"),
+      registro: document.getElementById("modal-registro"),
+      servicio: document.getElementById("modal-servicio")
+    };
+
+    document.querySelectorAll(".action-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const modalId = btn.dataset.modal;
+        modals[modalId].style.display = "flex";
+      });
+    });
+
+    document.querySelectorAll(".close").forEach(c => {
+      c.addEventListener("click", () => {
+        c.parentElement.parentElement.style.display = "none";
+      });
+    });
+
+    window.addEventListener("click", e => {
+      Object.values(modals).forEach(modal => {
+        if (e.target === modal) modal.style.display = "none";
+      });
+    });
+  </script>
+</body>
+</html>
