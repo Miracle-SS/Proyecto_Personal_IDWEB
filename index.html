@@ -104,7 +104,7 @@
       margin-top: 10px;
     }
 
-    /* --- Modales --- */
+    /* --- Modales con desenfoque --- */
     .modal {
       display: none;
       position: fixed;
@@ -113,12 +113,14 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.8);
+      background-color: rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px); /* ✅ Desenfoque solo en el fondo */
       justify-content: center;
       align-items: center;
     }
+
     .modal-content {
-      background-color: #111;
+      background-color: rgba(17, 17, 17, 0.95); /* Evita el desenfoque del formulario */
       border: 2px solid #ff00ff;
       padding: 20px;
       width: 80%;
@@ -139,14 +141,45 @@
     .close:hover {
       color: #ff00ff;
     }
+
+    /* --- Formularios --- */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    input, select, textarea {
+      background: #222;
+      border: 1px solid #00ffff;
+      border-radius: 8px;
+      color: #fff;
+      padding: 8px;
+      outline: none;
+      font-family: "Poppins", sans-serif;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #ff00ff;
+      box-shadow: 0 0 10px #ff00ff;
+    }
+    button[type="submit"] {
+      background: linear-gradient(90deg, #00ffff, #ff00ff);
+      border: none;
+      color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button[type="submit"]:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00ffff;
+    }
   </style>
 </head>
 
 <body>
-  <audio id="bg-music"
-    src="https://files.scottbuckley.com.au/mp3/2021/Night-Drift.mp3"
-    autoplay loop>
-  </audio>
+  <audio id="bg-music" src="https://files.scottbuckley.com.au/mp3/2021/Night-Drift.mp3" autoplay loop></audio>
 
   <header>
     <h1 class="rgb-title">BLAST · THE BEST PLAY</h1>
@@ -179,7 +212,7 @@
   <!-- TORNEOS -->
   <section id="torneos" class="tab-content">
     <h2>Torneos</h2>
-    <p>Regístrate para participar en próximos torneos. Costos y premios disponibles pronto.</p>
+    <p>Regístrate para participar en próximos torneos.</p>
     <button class="action-btn" data-modal="registro">Registrar Participación</button>
     <p class="placeholder">por rellenar :c</p>
   </section>
@@ -209,7 +242,11 @@
     <div class="modal-content">
       <span class="close">&times;</span>
       <h3>Iniciar Sesión</h3>
-      <p>por rellenar :c</p>
+      <form>
+        <input type="text" placeholder="Usuario" required />
+        <input type="password" placeholder="Contraseña" required />
+        <button type="submit">Entrar</button>
+      </form>
     </div>
   </div>
 
@@ -217,7 +254,17 @@
     <div class="modal-content">
       <span class="close">&times;</span>
       <h3>Registro de Torneos</h3>
-      <p>por rellenar :c</p>
+      <form>
+        <input type="text" placeholder="Nombre del equipo" required />
+        <input type="text" placeholder="Capitán" required />
+        <input type="email" placeholder="Correo de contacto" required />
+        <select required>
+          <option value="">Selecciona juego</option>
+          <option>MLBB</option>
+          <option>Dota 2</option>
+        </select>
+        <button type="submit">Enviar</button>
+      </form>
     </div>
   </div>
 
@@ -225,7 +272,18 @@
     <div class="modal-content">
       <span class="close">&times;</span>
       <h3>Solicitar Servicio</h3>
-      <p>por rellenar :c</p>
+      <form>
+        <input type="text" placeholder="Nombre" required />
+        <select required>
+          <option value="">Selecciona servicio</option>
+          <option>Boosting</option>
+          <option>Coaching</option>
+          <option>Torneos</option>
+          <option>Streams</option>
+        </select>
+        <textarea placeholder="Detalles adicionales..." rows="3"></textarea>
+        <button type="submit">Enviar Solicitud</button>
+      </form>
     </div>
   </div>
 
@@ -237,10 +295,8 @@
     navBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const target = btn.dataset.tab;
-
         navBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-
         tabs.forEach(tab => {
           tab.classList.remove('active');
           if (tab.id === target) tab.classList.add('active');
