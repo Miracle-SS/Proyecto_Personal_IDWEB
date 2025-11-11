@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MIRACLE-MLBB.GG</title>
   <style>
-    /* --- General --- */
+    /* --- Fondo con video --- */
     body {
       margin: 0;
       font-family: "Poppins", sans-serif;
@@ -13,16 +13,37 @@
       color: #fff;
       text-align: center;
       overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
       cursor: url('https://cur.cursors-4u.net/food/foo-3/foo255.cur'), auto;
+    }
+
+    video#bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.25; /* Nivel de visibilidad del fondo */
     }
 
     /* --- Encabezado RGB --- */
     header {
-      padding: 40px 10px;
-      background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
-      background-size: 400% 400%;
-      animation: rgbFlow 8s ease infinite;
-    }
+  padding: 40px 10px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 255, 0.3),
+    rgba(255, 0, 255, 0.3),
+    rgba(0, 255, 255, 0.3)
+  );
+  background-size: 400% 400%;
+  animation: rgbFlow 8s ease infinite;
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(4px); /* efecto suave tipo vidrio */
+}
     @keyframes rgbFlow {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -37,6 +58,26 @@
       opacity: 0.8;
     }
 
+    /* --- Botón de sonido --- */
+    #toggle-sound {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(90deg, #00ffff, #ff00ff);
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffff;
+      font-weight: bold;
+      z-index: 3;
+    }
+    #toggle-sound:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #ff00ff;
+    }
+
     /* --- Navegación --- */
     .nav-buttons {
       margin: 20px 0;
@@ -44,6 +85,8 @@
       justify-content: center;
       gap: 15px;
       flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
     }
     .nav-btn {
       border: none;
@@ -73,6 +116,8 @@
       display: none;
       padding: 60px 20px;
       animation: fadeIn 0.6s ease;
+      position: relative;
+      z-index: 2;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.98); }
@@ -104,7 +149,7 @@
       margin-top: 10px;
     }
 
-    /* --- Modales con desenfoque --- */
+    /* --- Modales --- */
     .modal {
       display: none;
       position: fixed;
@@ -179,9 +224,13 @@
 </head>
 
 <body>
-  <audio id="bg-music" src="https://files.scottbuckley.com.au/mp3/2021/Night-Drift.mp3" autoplay loop></audio>
+  <!-- 🎥 Video de fondo -->
+  <video id="bg-video" autoplay muted loop>
+    <source src="AQO304ma_BQnY4Py9Hv4T6yW6Ajpr1Sa7U6GDQNbOfApC_IIHb8ALDTRnCk1ETe0v9m8EShOdGZPbNODXy_HMO4ZVDEYHEvOY4jonxI5jWL3Ew.mp4" type="video/mp4">
+  </video>
 
   <header>
+    <button id="toggle-sound">🔇 Activar sonido</button>
     <h1 class="rgb-title">BLAST · THE BEST PLAY</h1>
     <p class="subtitle">"Te moldearé casi al nivel como Dios creó el universo."</p>
   </header>
@@ -194,7 +243,7 @@
     <button class="nav-btn" data-tab="resultados">Resultados</button>
   </nav>
 
-  <!-- PERFIL -->
+  <!-- Secciones -->
   <section id="perfil" class="tab-content active">
     <h2>Perfil Profesional MLBB</h2>
     <p>GoldLaner · Jungler · MidLaner</p>
@@ -202,14 +251,12 @@
     <button class="action-btn" data-modal="login">Iniciar Sesión</button>
   </section>
 
-  <!-- DOTA -->
   <section id="dota" class="tab-content">
     <h2>Dota (por diversión)</h2>
     <p>Juego Dota por diversión — si quieres nos echamos unas partidas en VIVOO.</p>
     <p class="placeholder">por rellenar :c</p>
   </section>
 
-  <!-- TORNEOS -->
   <section id="torneos" class="tab-content">
     <h2>Torneos</h2>
     <p>Regístrate para participar en próximos torneos.</p>
@@ -217,7 +264,6 @@
     <p class="placeholder">por rellenar :c</p>
   </section>
 
-  <!-- SERVICIOS -->
   <section id="servicios" class="tab-content">
     <h2>Servicios</h2>
     <ul>
@@ -230,14 +276,13 @@
     <p class="placeholder">por rellenar :c</p>
   </section>
 
-  <!-- RESULTADOS -->
   <section id="resultados" class="tab-content">
     <h2>Resultados / Pruebas</h2>
     <p>Añade enlaces a YouTube como prueba de torneos y partidas.</p>
     <p class="placeholder">por rellenar :c</p>
   </section>
 
-  <!-- MODALES -->
+  <!-- Modales -->
   <div id="modal-login" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
@@ -264,12 +309,9 @@
           <option>Dota 2</option>
         </select>
         <textarea name="mensaje" placeholder="Mensaje adicional (opcional)"></textarea>
-
-        <!-- Configuración invisible -->
         <input type="hidden" name="_subject" value="Nuevo registro de torneo en MIRACLE-MLBB.GG">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="box">
-
         <button type="submit">Enviar</button>
       </form>
     </div>
@@ -295,10 +337,9 @@
   </div>
 
   <script>
-    // --- Navegación entre pestañas ---
+    // --- Tabs ---
     const navBtns = document.querySelectorAll('.nav-btn');
     const tabs = document.querySelectorAll('.tab-content');
-
     navBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const target = btn.dataset.tab;
@@ -317,24 +358,31 @@
       registro: document.getElementById("modal-registro"),
       servicio: document.getElementById("modal-servicio")
     };
-
     document.querySelectorAll(".action-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         const modalId = btn.dataset.modal;
         modals[modalId].style.display = "flex";
       });
     });
-
     document.querySelectorAll(".close").forEach(c => {
       c.addEventListener("click", () => {
         c.parentElement.parentElement.style.display = "none";
       });
     });
-
     window.addEventListener("click", e => {
       Object.values(modals).forEach(modal => {
         if (e.target === modal) modal.style.display = "none";
       });
+    });
+
+    // --- Control del sonido ---
+    const video = document.getElementById("bg-video");
+    const soundBtn = document.getElementById("toggle-sound");
+    let soundOn = false;
+    soundBtn.addEventListener("click", () => {
+      soundOn = !soundOn;
+      video.muted = !soundOn;
+      soundBtn.textContent = soundOn ? "🔊 Desactivar sonido" : "🔇 Activar sonido";
     });
   </script>
 </body>
